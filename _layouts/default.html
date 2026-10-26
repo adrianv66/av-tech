@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.summary | default: page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body class="tech">
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <nav class="site-nav">
+        {% for link in site.nav %}
+        <a href="{% if link.url contains '://' %}{{ link.url }}{% else %}{{ link.url | relative_url }}{% endif %}">{{ link.title }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    {{ content }}
+  </main>
+
+  <footer class="wrap site-footer">
+    <p>{{ site.title }} · Code samples are provided as is; test before running them anywhere that matters.</p>
+  </footer>
+  <script src="{{ '/assets/code.js' | relative_url }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+---
+layout: default
+title: Projects
+---
+<h1>Projects</h1>
+<p class="lead">Scripts and tools I've built, with links to the code.</p>
+
+{% assign projects = site.projects | sort: "started" | reverse %}
+{% if projects.size > 0 %}
+<div class="trip-cards">
+  {% for p in projects %}
+  {%- assign lang = p.language | default: "Other" -%}
+  {%- assign color = site.language_colors[lang] | default: site.language_colors.Other -%}
+  {%- assign post_count = site.posts | where: "project", p.slug | size -%}
+  <a class="trip-card" href="{{ p.url | relative_url }}">
+    <span class="trip-card-body">
+      <span class="trip-card-top"><span class="lang-chip" style="--chip: {{ color }};">{{ lang }}</span>{% if p.status %} <span class="status status-{% if p.status == 'Active' %}live{% elsif p.status == 'Archived' %}past{% else %}upcoming{% endif %}">{{ p.status }}</span>{% endif %}</span>
+      <span class="trip-card-title">{{ p.title }}</span>
+      {% if p.started %}<span class="trip-card-dates">Since {{ p.started | date: "%B %Y" }}</span>{% endif %}
+      {% if p.summary %}<span class="trip-card-summary">{{ p.summary }}</span>{% endif %}
+      {% if post_count > 0 %}<span class="trip-card-count">{{ post_count }} post{% if post_count != 1 %}s{% endif %}</span>{% endif %}
+    </span>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<p class="empty">No projects yet.</p>
+{% endif %}

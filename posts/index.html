@@ -1,0 +1,44 @@
+---
+layout: default
+title: Posts
+---
+<h1>Posts</h1>
+<p class="lead">How-tos, scripts and things learned the hard way.</p>
+
+{% if site.posts.size > 0 %}
+{% assign all_tags = site.tags | sort %}
+{% if all_tags.size > 0 %}
+<p class="tag-filter" id="tag-filter">
+  <a class="tag" href="#" data-tag="">All</a>{% for t in all_tags %}<a class="tag" href="#tag-{{ t[0] | slugify }}" data-tag="{{ t[0] | slugify }}">{{ t[0] }} <span>{{ t[1].size }}</span></a>{% endfor %}
+</p>
+{% endif %}
+<ul class="post-list" id="post-list">
+  {% for post in site.posts %}
+  <li data-tags="{% for t in post.tags %}{{ t | slugify }} {% endfor %}">
+    <a href="{{ post.url | relative_url }}">
+      <span class="post-title">{{ post.title }}</span>
+      <span class="post-date">{{ post.date | date: "%-d %b %Y" }}</span>
+      {% if post.summary %}<span class="post-summary">{{ post.summary }}</span>{% endif %}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+<script>
+  (function () {
+    var items = document.querySelectorAll('#post-list li');
+    var links = document.querySelectorAll('#tag-filter .tag');
+    function apply() {
+      var tag = (location.hash.match(/^#tag-(.+)$/) || [])[1] || '';
+      items.forEach(function (li) { li.hidden = tag && (' ' + li.dataset.tags).indexOf(' ' + tag + ' ') < 0; });
+      links.forEach(function (a) { a.classList.toggle('active', a.dataset.tag === tag); });
+    }
+    links.forEach(function (a) {
+      if (a.dataset.tag === '') a.addEventListener('click', function (e) { e.preventDefault(); history.replaceState(null, '', location.pathname); apply(); });
+    });
+    window.addEventListener('hashchange', apply);
+    apply();
+  })();
+</script>
+{% else %}
+<p class="empty">No posts yet.</p>
+{% endif %}

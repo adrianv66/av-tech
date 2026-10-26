@@ -1,0 +1,101 @@
+---
+layout: default
+---
+{%- assign hero_title = site.hero_title | default: site.title -%}
+{%- assign hero_subtitle = site.hero_subtitle | default: site.description -%}
+{%- if site.hero_image and site.hero_image != "" -%}
+<section class="hero" style="--hero: url('{{ site.hero_image | relative_url }}');">
+  <div class="hero-text">
+    <h1>{{ hero_title }}</h1>
+    <p>{{ hero_subtitle }}</p>
+  </div>
+</section>
+{%- else -%}
+<section class="intro">
+  <h1>{{ hero_title }}</h1>
+  <p class="lead">{{ hero_subtitle }}</p>
+</section>
+{%- endif -%}
+
+<section id="projects">
+  <h2>Projects</h2>
+  {% assign projects = site.projects | sort: "started" | reverse %}
+  {% assign spine_heights = "250,272,236,260,244,268,254,240" | split: "," %}
+  {% if projects.size > 0 %}
+  <div class="bookshelf">
+    {% for p in projects %}
+    {%- assign i = forloop.index0 | modulo: 8 -%}
+    {%- assign lang = p.language | default: "Other" -%}
+    {%- assign color = site.language_colors[lang] | default: site.language_colors.Other -%}
+    {%- assign post_count = site.posts | where: "project", p.slug | size -%}
+    {%- assign spine_w = post_count | times: 8 | plus: 52 -%}
+    {%- if spine_w > 92 %}{% assign spine_w = 92 %}{% endif -%}
+    <div class="book-slot">
+      <a class="book" href="{{ p.url | relative_url }}"
+         style="--spine: {{ p.spine_color | default: color }}; --h: {{ spine_heights[i] }}px; --w: {{ spine_w }}px;"
+         aria-label="{{ p.title }}, {{ lang }}"
+         data-title="{{ p.title | escape }}"
+         data-dates="{{ lang }}{% if p.status %} · {{ p.status }}{% endif %}"
+         data-summary="{{ p.summary | escape }}"
+         data-count="{% if post_count > 0 %}{{ post_count }} post{% if post_count != 1 %}s{% endif %}{% endif %}">
+        <span class="book-title">{{ p.title }}</span>
+        <span class="book-year">{{ site.language_short[lang] | default: lang | truncate: 8, "" }}</span>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="shelf-caption" data-caption aria-live="polite">Pick a book to open a project. <a href="{{ '/projects/' | relative_url }}">All projects →</a></p>
+  {% else %}
+  <p class="empty">No projects yet.</p>
+  {% endif %}
+</section>
+
+{% if site.posts.size > 0 %}
+{% assign paper_colors = "#efe4cf,#dfe7df,#e9dcd2,#dde3ec,#f1e6c4,#e6dbe6" | split: "," %}
+{% assign paper_heights = "214,226,206,220,210,230" | split: "," %}
+<section id="posts">
+  <h2>Latest posts</h2>
+  <div class="bookshelf paperbacks">
+    {% for post in site.posts limit: 24 %}
+    {%- assign i = forloop.index0 | modulo: 6 -%}
+    {%- assign words = post.content | number_of_words -%}
+    {%- assign spine_w = words | divided_by: 40 | plus: 30 -%}
+    {%- if spine_w > 54 %}{% assign spine_w = 54 %}{% endif -%}
+    {%- capture post_date %}{{ post.date | date: "%-d %b %Y" }}{% endcapture -%}
+    <div class="book-slot">
+      <a class="book paperback" href="{{ post.url | relative_url }}"
+         style="--spine: {{ post.spine_color | default: paper_colors[i] }}; --h: {{ paper_heights[i] }}px; --w: {{ spine_w }}px;"
+         aria-label="{{ post.title }}, {{ post_date }}"
+         data-title="{{ post.title | escape }}"
+         data-dates="{{ post_date }}"
+         data-summary="{{ post.summary | escape }}">
+        <span class="book-title">{{ post.title }}</span>
+        <span class="book-year">{{ post.date | date: "%Y" }}</span>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="shelf-caption" data-caption aria-live="polite">Pick a paperback to read a post. <a href="{{ '/posts/' | relative_url }}">All posts →</a></p>
+</section>
+{% endif %}
+
+<script>
+  (function () {
+    function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+    document.querySelectorAll('.bookshelf').forEach(function (shelf) {
+      var cap = shelf.nextElementSibling;
+      if (!cap || !cap.hasAttribute('data-caption')) return;
+      var initial = cap.innerHTML;
+      function show(b) {
+        cap.innerHTML = '<strong>' + esc(b.dataset.title) + '</strong> · ' + esc(b.dataset.dates) +
+          (b.dataset.summary ? '<br><span>' + esc(b.dataset.summary) + '</span>' : '') +
+          (b.dataset.count ? '<br><span class="shelf-count">' + esc(b.dataset.count) + '</span>' : '');
+      }
+      shelf.querySelectorAll('.book').forEach(function (b) {
+        b.addEventListener('mouseenter', function () { show(b); });
+        b.addEventListener('focus', function () { show(b); });
+      });
+      shelf.addEventListener('mouseleave', function () { cap.innerHTML = initial; });
+    });
+  })();
+</script>

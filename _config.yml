@@ -1,0 +1,70 @@
+title: AV-Tech
+description: Scripts, tools and notes from the keyboard
+url: "https://tech.amvhome.net"
+baseurl: ""
+timezone: Australia/Sydney
+
+# Front page banner. Leave hero_title / hero_subtitle blank to use title / description above.
+# hero_image: a wide photo in /images, about 2000px wide, e.g. /images/hero.jpg (blank = no photo).
+hero_title: ""
+hero_subtitle: ""
+hero_image: ""
+
+# Links on the right of the header.
+nav:
+  - title: Projects
+    url: /projects/
+  - title: Posts
+    url: /posts/
+  - title: Travel ↗
+    url: https://travel.amvhome.net
+
+# Spine colour for each project language (anything not listed uses "Other").
+language_colors:
+  PowerShell: "#1f3f73"
+  Python: "#2f5f8a"
+  JavaScript: "#8a6d12"
+  TypeScript: "#24557a"
+  Bash: "#2f5233"
+  C#: "#4f2f73"
+  Go: "#1f5f61"
+  Other: "#5a4a3a"
+
+# Short label printed at the bottom of a project's spine.
+language_short:
+  PowerShell: PS
+  JavaScript: JS
+  TypeScript: TS
+  Python: PY
+
+# Posts live in _posts/ and are published at /posts/<title>/.
+permalink: /posts/:title/
+
+# Posts dated in the future are NOT published until that date.
+future: false
+
+# One file per project in _projects/, published at /projects/<file name>/.
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+defaults:
+  - scope:
+      type: projects
+    values:
+      layout: project
+  - scope:
+      type: posts
+    values:
+      layout: post
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+exclude:
+  - README.md
+  - tools
