@@ -1,9 +1,9 @@
 ---
-title: AV-Travel
+title: Ady and Mich Travel
 language: PowerShell
 status: Active
 started: 2026-10-26
-repo: https://github.com/adrianv66/av-travel
+repo: 
 summary: "Our travel journal at travel.amvhome.net: Jekyll on GitHub Pages, with PowerShell scripts that create each day's page."
 ---
 
