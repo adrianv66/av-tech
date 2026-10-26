@@ -50,8 +50,8 @@ layout: default
   {% endif %}
 </section>
 
+{% if site.vendors and site.vendors.size > 0 %}
 {% assign vendors = site.vendors | sort: "order" %}
-{% if vendors.size > 0 %}
 {% assign vendor_colors = "#3d4a5c,#5b3a5e,#2f5233,#7b2d26,#1f5f61,#a8781f,#23395b,#9a4a26" | split: "," %}
 {% assign vendor_heights = "262,244,270,250,258,240,266,248" | split: "," %}
 <section id="vendors">

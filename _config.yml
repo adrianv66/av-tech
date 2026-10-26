@@ -1,4 +1,4 @@
-title: Adrian V - EUC Engineer
+title: AV-Tech
 description: Scripts, tools and notes from the keyboard
 url: "https://tech.amvhome.net"
 baseurl: ""
@@ -48,6 +48,11 @@ collections:
   projects:
     output: true
     permalink: /projects/:name/
+  # One file per vendor in _vendors/, published at /vendors/<file name>/.
+  # A vendor's page lists every post tagged with its `tag` (or its file name).
+  vendors:
+    output: true
+    permalink: /vendors/:name/
 
 defaults:
   - scope:
@@ -58,6 +63,10 @@ defaults:
       type: posts
     values:
       layout: post
+  - scope:
+      type: vendors
+    values:
+      layout: vendor
 
 markdown: kramdown
 highlighter: rouge
