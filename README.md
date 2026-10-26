@@ -45,3 +45,16 @@ anything from work you're not free to share. Use placeholders like `contoso.com`
 2. Repo **Settings → Pages**: Deploy from a branch, `main`, `/ (root)`. Custom domain shows `tech.amvhome.net` (from `CNAME`).
 3. GoDaddy DNS for amvhome.net: add `CNAME`, name `tech`, value `adrianv66.github.io`.
 4. When the DNS check is green, tick **Enforce HTTPS**.
+
+## Vendors shelf
+
+One file per vendor in `_vendors/` (e.g. `_vendors/citrix.md`): `title`, `order` (position on the shelf), `tag`,
+`summary`, `products`, optional `website` and `spine_color`. A vendor's page at `/vendors/<file name>/` lists every
+post tagged with its `tag`, so tag posts accordingly:
+
+```powershell
+.\tools\New-TechPost.ps1 "Scaling AVD host pools" -Tags avd, powershell
+```
+
+Tags in use: citrix, horizon, workspace-one, avd, windows-365, intune, igel, defender, airlock, action1.
+To add a vendor, copy one of the files and change it; to remove one, delete its file.

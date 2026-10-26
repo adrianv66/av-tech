@@ -50,6 +50,37 @@ layout: default
   {% endif %}
 </section>
 
+{% assign vendors = site.vendors | sort: "order" %}
+{% if vendors.size > 0 %}
+{% assign vendor_colors = "#3d4a5c,#5b3a5e,#2f5233,#7b2d26,#1f5f61,#a8781f,#23395b,#9a4a26" | split: "," %}
+{% assign vendor_heights = "262,244,270,250,258,240,266,248" | split: "," %}
+<section id="vendors">
+  <h2>By vendor</h2>
+  <div class="bookshelf">
+    {% for v in vendors %}
+    {%- assign i = forloop.index0 | modulo: 8 -%}
+    {%- assign v_tag = v.tag | default: v.slug -%}
+    {%- assign v_posts = site.tags[v_tag] -%}
+    {%- assign post_count = v_posts | size -%}
+    {%- assign spine_w = post_count | times: 6 | plus: 50 -%}
+    {%- if spine_w > 96 %}{% assign spine_w = 96 %}{% endif -%}
+    <div class="book-slot">
+      <a class="book" href="{{ v.url | relative_url }}"
+         style="--spine: {{ v.spine_color | default: vendor_colors[i] }}; --h: {{ vendor_heights[i] }}px; --w: {{ spine_w }}px;"
+         aria-label="{{ v.title }}"
+         data-title="{{ v.title | escape }}"
+         data-dates="{% if post_count > 0 %}{{ post_count }} post{% if post_count != 1 %}s{% endif %}{% else %}No posts yet{% endif %}"
+         data-summary="{{ v.summary | escape }}">
+        <span class="book-title">{{ v.title }}</span>
+        <span class="book-year">{% if post_count > 0 %}{{ post_count }}{% endif %}</span>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="shelf-caption" data-caption aria-live="polite">Pick a vendor to see its posts.</p>
+</section>
+{% endif %}
+
 {% if site.posts.size > 0 %}
 {% assign paper_colors = "#efe4cf,#dfe7df,#e9dcd2,#dde3ec,#f1e6c4,#e6dbe6" | split: "," %}
 {% assign paper_heights = "214,226,206,220,210,230" | split: "," %}

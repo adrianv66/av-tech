@@ -1,0 +1,38 @@
+---
+layout: default
+---
+{%- assign v_tag = page.tag | default: page.slug -%}
+{%- assign v_posts = site.tags[v_tag] -%}
+<article class="vendor">
+  <p class="crumbs"><a href="{{ '/#vendors' | relative_url }}">Vendors</a></p>
+  <h1>{{ page.title }}</h1>
+  {% if page.summary %}<p class="lead">{{ page.summary }}</p>{% endif %}
+  {% if page.products %}
+  <p class="tags">{% for prod in page.products %}<span class="tag">{{ prod }}</span>{% endfor %}</p>
+  {% endif %}
+
+  <div class="day-body post-body">
+    {{ content }}
+  </div>
+
+  <section>
+    <h2>Posts</h2>
+    {% if v_posts and v_posts.size > 0 %}
+    <ul class="post-list">
+      {% for post in v_posts %}
+      <li><a href="{{ post.url | relative_url }}">
+        <span class="post-title">{{ post.title }}</span>
+        <span class="post-date">{{ post.date | date: "%-d %b %Y" }}</span>
+        {% if post.summary %}<span class="post-summary">{{ post.summary }}</span>{% endif %}
+      </a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty">No posts yet. Tag a post <code>{{ v_tag }}</code> and it shows up here.</p>
+    {% endif %}
+  </section>
+
+  {% if page.website and page.website != "" %}
+  <p><a href="{{ page.website }}">{{ page.title }} website ↗</a></p>
+  {% endif %}
+</article>
