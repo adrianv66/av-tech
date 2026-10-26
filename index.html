@@ -17,39 +17,6 @@ layout: default
 </section>
 {%- endif -%}
 
-<section id="projects">
-  <h2>Projects</h2>
-  {% assign projects = site.projects | sort: "started" | reverse %}
-  {% assign spine_heights = "250,272,236,260,244,268,254,240" | split: "," %}
-  {% if projects.size > 0 %}
-  <div class="bookshelf">
-    {% for p in projects %}
-    {%- assign i = forloop.index0 | modulo: 8 -%}
-    {%- assign lang = p.language | default: "Other" -%}
-    {%- assign color = site.language_colors[lang] | default: site.language_colors.Other -%}
-    {%- assign post_count = site.posts | where: "project", p.slug | size -%}
-    {%- assign spine_w = post_count | times: 8 | plus: 52 -%}
-    {%- if spine_w > 92 %}{% assign spine_w = 92 %}{% endif -%}
-    <div class="book-slot">
-      <a class="book" href="{{ p.url | relative_url }}"
-         style="--spine: {{ p.spine_color | default: color }}; --h: {{ spine_heights[i] }}px; --w: {{ spine_w }}px;"
-         aria-label="{{ p.title }}, {{ lang }}"
-         data-title="{{ p.title | escape }}"
-         data-dates="{{ lang }}{% if p.status %} · {{ p.status }}{% endif %}"
-         data-summary="{{ p.summary | escape }}"
-         data-count="{% if post_count > 0 %}{{ post_count }} post{% if post_count != 1 %}s{% endif %}{% endif %}">
-        <span class="book-title">{{ p.title }}</span>
-        <span class="book-year">{{ site.language_short[lang] | default: lang | truncate: 8, "" }}</span>
-      </a>
-    </div>
-    {% endfor %}
-  </div>
-  <p class="shelf-caption" data-caption aria-live="polite">Pick a book to open a project. <a href="{{ '/projects/' | relative_url }}">All projects →</a></p>
-  {% else %}
-  <p class="empty">No projects yet.</p>
-  {% endif %}
-</section>
-
 {% if site.vendors and site.vendors.size > 0 %}
 {% assign vendors = site.vendors | sort: "order" %}
 {% assign vendor_colors = "#3d4a5c,#5b3a5e,#2f5233,#7b2d26,#1f5f61,#a8781f,#23395b,#9a4a26" | split: "," %}
@@ -109,6 +76,39 @@ layout: default
   <p class="shelf-caption" data-caption aria-live="polite">Pick a paperback to read a post. <a href="{{ '/posts/' | relative_url }}">All posts →</a></p>
 </section>
 {% endif %}
+
+<section id="projects">
+  <h2>Projects</h2>
+  {% assign projects = site.projects | sort: "started" | reverse %}
+  {% assign spine_heights = "250,272,236,260,244,268,254,240" | split: "," %}
+  {% if projects.size > 0 %}
+  <div class="bookshelf">
+    {% for p in projects %}
+    {%- assign i = forloop.index0 | modulo: 8 -%}
+    {%- assign lang = p.language | default: "Other" -%}
+    {%- assign color = site.language_colors[lang] | default: site.language_colors.Other -%}
+    {%- assign post_count = site.posts | where: "project", p.slug | size -%}
+    {%- assign spine_w = post_count | times: 8 | plus: 52 -%}
+    {%- if spine_w > 92 %}{% assign spine_w = 92 %}{% endif -%}
+    <div class="book-slot">
+      <a class="book" href="{{ p.url | relative_url }}"
+         style="--spine: {{ p.spine_color | default: color }}; --h: {{ spine_heights[i] }}px; --w: {{ spine_w }}px;"
+         aria-label="{{ p.title }}, {{ lang }}"
+         data-title="{{ p.title | escape }}"
+         data-dates="{{ lang }}{% if p.status %} · {{ p.status }}{% endif %}"
+         data-summary="{{ p.summary | escape }}"
+         data-count="{% if post_count > 0 %}{{ post_count }} post{% if post_count != 1 %}s{% endif %}{% endif %}">
+        <span class="book-title">{{ p.title }}</span>
+        <span class="book-year">{{ site.language_short[lang] | default: lang | truncate: 8, "" }}</span>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="shelf-caption" data-caption aria-live="polite">Pick a book to open a project. <a href="{{ '/projects/' | relative_url }}">All projects →</a></p>
+  {% else %}
+  <p class="empty">No projects yet.</p>
+  {% endif %}
+</section>
 
 <script>
   (function () {
