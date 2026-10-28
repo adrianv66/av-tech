@@ -1,12 +1,13 @@
 ---
 title: "NetScaler's Run of CVEs: What's Happened and What to Do Now"
-summary: "Six exploited NetScaler flaws in 2026 so far, two of them zero-days. The pattern, the builds you need, and a checklist for patching, hunting and reducing exposure."
+summary: "Six exploited NetScaler flaws in 2026 so far, two of them zero-days, and PHP fixes on 27 October. The pattern, the builds you need, and a checklist for patching, hunting and reducing exposure."
 tags: [citrix, netscaler, security, powershell]
 ---
 
 If you run NetScaler ADC or Gateway, 2026 has been exhausting. Six NetScaler vulnerabilities have been added to
 CISA's Known Exploited Vulnerabilities list so far this year, two of them exploited before Citrix had a fix. The
-most recent was added on 4 October.
+most recent was added on 4 October, and on 27 October Citrix released another critical fix, this time for flaws in
+the PHP component that runs the management interface.
 
 This isn't new. NetScaler has a long history of flaws attackers move on quickly: CVE-2019-19781 in 2019,
 CVE-2022-27518 in 2022, CVE-2023-3519 and CitrixBleed (CVE-2023-4966) in 2023, and CitrixBleed 2
@@ -27,6 +28,34 @@ CVE-2022-27518 in 2022, CVE-2023-3519 and CitrixBleed (CVE-2023-4966) in 2023, a
 
 FIPS and NDcPP builds have their own fixed versions; check the Citrix bulletin for each.
 
+## Latest: PHP fixes on 27 October
+
+On 27 October 2026, Citrix released fixed builds for two critical PHP vulnerabilities,
+[CVE-2026-109618 and CVE-2026-109619](https://support.citrix.com/external/article/CTX697263) (bulletin
+CTX697263, first published 22 October). They're flaws in PHP itself, sometimes called "php2shell":
+
+- **CVE-2026-109618:** remote code execution through memory corruption when PHP runs out of memory
+- **CVE-2026-109619:** remote code execution through stale state left over from an earlier request
+
+Both are rated critical (CVSS 9.2) and allow unauthenticated remote code execution. CISA added both to its
+exploited list on 26 October, based on attacks against PHP in general.
+
+**What it means for NetScaler:** on NetScaler, PHP runs behind the management GUI. That makes the NSIP, any SNIP
+with management access enabled and the cluster IP the exposed surfaces; Gateway and AAA virtual servers aren't the
+way in. Citrix-managed cloud services have already been fixed, and NetScaler Console isn't affected.
+
+| Branch | Fixed in |
+| --- | --- |
+| NetScaler ADC and Gateway 14.1 | 14.1-73.49 and later |
+| NetScaler ADC and Gateway 13.1 | 13.1-64.32 and later |
+| NetScaler ADC 14.1-FIPS | 14.1-73.49 FIPS and later |
+| NetScaler ADC 13.1-FIPS and 13.1-NDcPP | 13.1-37.286 and later |
+
+These builds also include the earlier 2026 fixes, including the 8 October fix for CVE-2026-107406 (a SAML flaw
+with no reported exploitation), so they're the builds to aim for. Until you can upgrade, restrict GUI and API access
+to trusted admin hosts with ACLs. Don't use the PHP version to check whether you're fixed; go by the NetScaler build
+number.
+
 ## The pattern
 
 - **The gateway is the target.** Almost every one of these needs a Gateway or AAA virtual server, which is exactly
@@ -35,6 +64,8 @@ FIPS and NDcPP builds have their own fixed versions; check the Citrix bulletin f
 - **Patching isn't the end.** Mandiant's write-up of the September zero-days describes web shells, a root
   backdoor, a tunnelling tool into the internal network and credential theft. A patched appliance can still be
   compromised.
+- **The management interface is a target too.** The October PHP flaws reach the management GUI, not the gateway.
+  A management interface on the internet turns an admin-side bug into an internet-facing one.
 - **Old branches fall behind.** The 13.1 branch reached End of Maintenance on 15 September 2026. Plan your move to
   14.1 now.
 - **Citrix-managed services are patched for you.** The bulletins only apply to customer-managed NetScalers. The
@@ -42,8 +73,8 @@ FIPS and NDcPP builds have their own fixed versions; check the Citrix bulletin f
 
 ## What to do now
 
-1. **Get to the latest build.** At the time of writing that's 14.1-73.41 or 13.1-64.28 or later, which covers
-   everything in the table. If you're on an older branch, move to 14.1.
+1. **Get to the latest build.** At the time of writing that's 14.1-73.49 or 13.1-64.32 or later, which covers
+   everything in this post, including the October PHP fixes. If you're on an older branch, move to 14.1.
 2. **If an appliance was exposed and unpatched, assume compromise.** Preserve evidence first (a VM snapshot with
    memory, logs and a support bundle), then run Citrix's IOC scanner and hunt using the published indicators.
 3. **Kill existing sessions after upgrading.** Stolen session tokens survive a patch. See the commands below.
@@ -56,6 +87,28 @@ FIPS and NDcPP builds have their own fixed versions; check the Citrix bulletin f
 7. **Consider whether you still need it.** For HDX-only access with Citrix DaaS, the Gateway service moves the
    patching to Citrix.
 
+## What Citrix recommends
+
+If you're running an affected version of NetScaler ADC or NetScaler Gateway, Citrix strongly urges you to install
+the updated versions as soon as possible. Citrix also strongly recommends that you
+[subscribe to alerts](https://support.citrix.com/wolken-support/view/aboutsupport/my-support-alerts), so you're told
+whenever a NetScaler security bulletin is created or changed.
+
+To reduce risk and be better prepared, organisations should:
+
+- Stay on a supported NetScaler release and apply security updates promptly.
+- Review deployments against the NetScaler Secure Deployment Guide and current security advisories.
+- Make sure management interfaces aren't exposed to the internet and that administrative access is tightly
+  controlled.
+- Keep a tested process for assessing exposure, reviewing indicators of compromise and recovering services if
+  needed.
+
+### Resources
+
+- [NetScaler Secure Deployment Guide](https://docs.netscaler.com/en-us/netscaler-adc-secure-deployment/deployment-guidelines)
+- [Indicators of compromise detection in NetScaler Console](https://docs.netscaler.com/en-us/netscaler-console-service/instance-advisory/ioc.html)
+- [Subscribe to Citrix security bulletin alerts](https://support.citrix.com/wolken-support/view/aboutsupport/my-support-alerts)
+
 ## From the field: which build is each NetScaler on?
 
 This PowerShell 7 script asks each appliance for its version through the NITRO API and flags anything below the
@@ -64,7 +117,7 @@ latest fixed build. Use a read-only NetScaler account.
 ```powershell
 $appliances = 'ns01.contoso.local', 'ns02.contoso.local'
 $cred       = Get-Credential   # read-only NetScaler account
-$minimum    = @{ '14.1' = [version]'73.41'; '13.1' = [version]'64.28' }
+$minimum    = @{ '14.1' = [version]'73.49'; '13.1' = [version]'64.32' }
 
 foreach ($ns in $appliances) {
     $headers = @{
@@ -120,6 +173,9 @@ Citrix-managed gateway would do the job, let Citrix carry the patching.
 
 ### Sources
 
+- [Citrix security advisory for CVE-2026-109618 and CVE-2026-109619 (Citrix, CTX697263)](https://support.citrix.com/external/article/CTX697263)
+- [CVE-2026-109618 and CVE-2026-109619: critical RCE in PHP (Rapid7)](https://www.rapid7.com/blog/post/etr-cve-2026-109618-and-cve-2026-109619-critical-unauthenticated-remote-code-execution-in-php/)
+- [NetScaler CVEs and php2shell: what you should know (Poppelgaard)](https://www.poppelgaard.com/cve-2026-88771-through-cve-2026-88778-what-you-should-know-and-how-to-fix-your-netscaler-adc-netscaler-gateway)
 - [Security bulletin for CVE-2026-88771 to CVE-2026-88778 (Citrix)](https://support.citrix.com/external/article/CTX697096/citrix-netscaler-adc-and-citrix-netscale.html)
 - [Security bulletin for CVE-2026-3055 and CVE-2026-4368 (Citrix)](https://support.citrix.com/external/article/CTX696300/netscaler-adc-and-netscaler-gateway-secu.html)
 - [Defending against active exploitation of NetScaler (Google Threat Intelligence)](https://cloud.google.com/blog/topics/threat-intelligence/defending-against-active-exploitation-of-citrix-netscaler-adc-and-gateway-appliances)
