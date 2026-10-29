@@ -1,13 +1,7 @@
 ---
-title: ""
+title: "uberAgent: Experience and Security Monitoring from One Agent"
 summary: "uberAgent collects user experience and security data once and uses it twice. What UXM and ESA cover, where the data goes, and how it fits with Citrix Monitor and your EDR."
 tags: [citrix, daas, uberagent, security, powershell]
----
-
-## TL;DR
-
-uberAgent collects user experience and security data once and uses it twice. What UXM and ESA cover, where the data goes, and how it fits with Citrix Monitor and your EDR.
-
 ---
 
 Monitoring tools tend to split along team lines. The EUC team watches logon times and app crashes; the security team
@@ -73,8 +67,8 @@ state on each host, and works in Windows PowerShell 5.1 and PowerShell 7.
 $hosts = Get-Content .\vdas.txt
 
 Invoke-Command -ComputerName $hosts -ScriptBlock {
-    $app = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall*',
-                            'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall*' `
+    $app = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*',
+                            'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*' `
                             -ErrorAction SilentlyContinue |
            Where-Object DisplayName -like 'uberAgent*' | Select-Object -First 1
     $svc = Get-Service -DisplayName '*uberAgent*' -ErrorAction SilentlyContinue | Select-Object -First 1
@@ -93,7 +87,7 @@ A blank version means the agent is missing; anything but `Running` means the dat
 uberAgent gives the EUC and security teams one source of truth from one agent. It complements Citrix Monitor and
 your EDR rather than replacing them, so plan where the data lands before you deploy.
 
-## Sources
+### Sources
 
 - [uberAgent UXM and ESA (Citrix docs)](https://docs.citrix.com/en-us/uberagent/8-x/about-uberagent/products-uxm-esa)
 - [uberAgent backends (Citrix docs)](https://docs.citrix.com/en-us/uberagent/8-x/installation/backend)

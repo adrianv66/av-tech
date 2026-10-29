@@ -1,14 +1,8 @@
 ---
-title: ""
+title: "Scripting Jekyll pages with PowerShell"
 summary: "Two small functions that make generated Markdown files behave: safe slugs and UTF-8 without a BOM."
 tags: [powershell, jekyll, github-pages]
 project: av-travel
----
-
-## TL;DR
-
-Two small functions that make generated Markdown files behave: safe slugs and UTF-8 without a BOM.
-
 ---
 
 The travel site gets a new page for every day of a trip, so I wrote `New-TravelDay.ps1` to create them.

@@ -1,13 +1,7 @@
 ---
-title: ""
+title: "Horizon Security Map: Ten Layers from Sign-in to Desktop"
 summary: "Where each control sits in an Omnissa Horizon deployment, from the identity provider to the golden image, and what to check first."
 tags: [horizon, security, powershell]
----
-
-## TL;DR
-
-Where each control sits in an Omnissa Horizon deployment, from the identity provider to the golden image, and what to check first.
-
 ---
 
 Securing Omnissa Horizon isn't one setting in the console. It's ten layers along the path a user takes, from signing
@@ -91,7 +85,7 @@ Anything under 30 days left, or anything below TLS 1.2, goes on the list.
 Horizon security is mostly about where things sit: one gateway in the DMZ, everything else internal, identity in
 front and a disposable desktop behind. Get the placement right and the settings are easier to get right too.
 
-## Sources
+### Sources
 
 - [Blast Secure Gateway (Omnissa docs)](https://docs.omnissa.com/HorizonOverviewDeployment/BlastSecureGateway)
 - [Setting up True SSO (Omnissa docs)](https://docs.omnissa.com/Horizon-Administration-V2312/SettingUpTrueSSO)

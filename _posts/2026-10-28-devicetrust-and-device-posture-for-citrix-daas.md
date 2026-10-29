@@ -1,13 +1,7 @@
 ---
-title: ""
+title: "deviceTRUST and Device Posture: Checking the Device All Session Long"
 summary: "Device Posture decides whether a device can sign in. deviceTRUST keeps checking while the session runs. Here's how the two fit together in Citrix DaaS."
 tags: [citrix, daas, devicetrust, security, powershell]
----
-
-## TL;DR
-
-Device Posture decides whether a device can sign in. deviceTRUST keeps checking while the session runs. Here's how the two fit together in Citrix DaaS.
-
 ---
 
 Most access checks happen once, at sign-in. If the device was compliant at 9 am, the session is trusted until the
@@ -68,8 +62,8 @@ endpoints. This check reports both from the registry, and works in Windows Power
 ```powershell
 function Get-InstalledProduct {
     param([string]$Like)
-    $keys = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall*',
-            'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall*'
+    $keys = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*',
+            'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*'
     Get-ItemProperty $keys -ErrorAction SilentlyContinue |
         Where-Object DisplayName -like $Like |
         Select-Object DisplayName, DisplayVersion
@@ -87,7 +81,7 @@ Run the same function on a sample of endpoints, or through your management tool,
 A sign-in check tells you the device was safe once. Device Posture and deviceTRUST together tell you it's still
 safe now, and give you a way to act when it isn't.
 
-## Sources
+### Sources
 
 - [Device Posture service and deviceTRUST: better together (Citrix docs)](https://docs.citrix.com/en-us/device-posture/device-posture-service-and-device-trust-better-together)
 - [deviceTRUST (Citrix)](https://citrix.com/platform/devicetrust.html)

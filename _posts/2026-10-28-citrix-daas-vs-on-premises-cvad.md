@@ -1,13 +1,7 @@
 ---
-title: ""
+title: "Citrix DaaS vs On-Premises CVAD: What Moves to the Cloud"
 summary: "Citrix DaaS takes the Delivery Controllers, SQL and Studio off your hands. Your VDAs, images and profiles stay where they are. Here's the split, and how to move."
 tags: [citrix, daas, powershell]
----
-
-## TL;DR
-
-Citrix DaaS takes the Delivery Controllers, SQL and Studio off your hands. Your VDAs, images and profiles stay where they are. Here's the split, and how to move.
-
 ---
 
 Citrix DaaS (formerly Citrix Virtual Apps and Desktops service) runs the Citrix control plane for you. Delivery
@@ -102,7 +96,7 @@ an interactive sign-in.
 DaaS takes the control plane off your hands and leaves the session hosts with you. Moving is mostly about Cloud
 Connectors, a new PowerShell SDK and Group Policy, not about rebuilding desktops.
 
-## Sources
+### Sources
 
 - [Citrix DaaS technical security overview (Citrix docs)](https://docs.citrix.com/en-us/citrix-daas/secure)
 - [Migrate on-premises configuration to Citrix DaaS (Citrix docs)](https://docs.citrix.com/en-us/citrix-daas/migrate/migrate-on-prem-to-cloud)

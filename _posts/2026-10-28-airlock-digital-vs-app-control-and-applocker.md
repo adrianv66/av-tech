@@ -1,13 +1,7 @@
 ---
-title: ""
+title: "Airlock Digital vs App Control for Business and AppLocker"
 summary: "Microsoft's application control is built in and free. Airlock adds the workflow that makes allowlisting survivable. Here's how to choose."
 tags: [airlock, security, powershell]
----
-
-## TL;DR
-
-Microsoft's application control is built in and free. Airlock adds the workflow that makes allowlisting survivable. Here's how to choose.
-
 ---
 
 Application control is the first strategy in the Essential Eight and one of the most effective controls you can
@@ -76,8 +70,8 @@ $dg = Get-CimInstance -Namespace root\Microsoft\Windows\DeviceGuard -ClassName W
 $mode = @{ 0 = 'Off'; 1 = 'Audit'; 2 = 'Enforced' }
 
 [pscustomobject]@{
-    AppControlKernel = $mode [[int]$dg.CodeIntegrityPolicyEnforcementStatus]
-    AppControlUser   = $mode [[int]$dg.UsermodeCodeIntegrityPolicyEnforcementStatus]
+    AppControlKernel = $mode[[int]$dg.CodeIntegrityPolicyEnforcementStatus]
+    AppControlUser   = $mode[[int]$dg.UsermodeCodeIntegrityPolicyEnforcementStatus]
     AppLockerRules   = @((Get-AppLockerPolicy -Effective).RuleCollections | ForEach-Object { $_ }).Count
     AirlockAgent     = (Get-Service -DisplayName '*Airlock*' -ErrorAction SilentlyContinue |
                         Select-Object -First 1).Status
@@ -92,7 +86,7 @@ chasing.
 Microsoft's built-in tools can meet the requirement if you have the time to maintain them. Airlock costs money but
 makes allowlisting something you can keep enforced while the business keeps changing.
 
-## Sources
+### Sources
 
 - [App Control for Business and AppLocker overview (Microsoft Learn)](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/wdac-and-applocker-overview)
 - [What is an OTP in Airlock's allowlisting solution? (Airlock Digital)](https://airlockdigital.com/airlock-blog/airlock-otp)
