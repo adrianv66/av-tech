@@ -1,7 +1,13 @@
 ---
-title: "Citrix Profile Management vs FSLogix: Choosing a Profile Container"
+title: ""
 summary: "Both now mount a VHDX per user. What's different, what you're licensed for, and why you shouldn't run both on the same profile."
 tags: [citrix, avd, fslogix, powershell]
+---
+
+## TL;DR
+
+Both now mount a VHDX per user. What's different, what you're licensed for, and why you shouldn't run both on the same profile.
+
 ---
 
 Not long ago this was an easy choice: Citrix Profile Management copied files, and FSLogix mounted a disk, so you
@@ -83,7 +89,7 @@ Get-ItemProperty 'HKLM:\SOFTWARE\FSLogix\Profiles' -Name Enabled -ErrorAction Si
 Both products now mount a VHDX, so neither wins on logon speed by default. Pick Citrix Profile Management if you're
 all-in on Citrix; pick FSLogix if you're on AVD, mixing platforms, or want the one you're already licensed for.
 
-### Sources
+## Sources
 
 - [Choose between file-based and container-based profiles (Citrix docs)](https://docs.citrix.com/en-us/profile-management/2511/plan/choose-between-two-solutions)
 - [Migrate FSLogix profiles to Citrix Profile Management (Citrix docs)](https://docs.citrix.com/en-us/workspace-environment-management/service/how-to/migrate-fslogix-profiles-to-cpm)

@@ -1,7 +1,13 @@
 ---
-title: "Bye-Bye FAS? Citrix SSO with NetScaler and Entra ID"
+title: ""
 summary: "With CVAD 2607 LTSR, users can sign in once with Entra ID and land on their desktop without FAS, a CA or a second password prompt. How it works, what you need and the gotchas."
 tags: [citrix, netscaler, security, powershell]
+---
+
+## TL;DR
+
+With CVAD 2607 LTSR, users can sign in once with Entra ID and land on their desktop without FAS, a CA or a second password prompt. How it works, what you need and the gotchas.
+
 ---
 
 For years, getting true single sign-on into a Citrix desktop after an Entra ID sign-in meant the Federated
@@ -133,7 +139,7 @@ Entra SSO without FAS removes a whole tier of certificate infrastructure and giv
 MFA and Conditional Access. It needs 2607 LTSR, hybrid-joined VDAs and careful NetScaler work, but for most
 Entra-first organisations it's the direction to head in.
 
-### Sources
+## Sources
 
 - [Bye-Bye FAS! Achieving pure Citrix SSO with NetScaler and Entra ID (Poppelgaard.com)](https://www.poppelgaard.com/bye-bye-fas-achieving-pure-citrix-sso-with-netscaler-and-entra-id)
 - [Microsoft Entra single sign-on, CVAD 2607 LTSR (Citrix docs)](https://docs.citrix.com/en-us/citrix-virtual-apps-desktops/2607-ltsr/install-configure/session-authentication/entra-sso)

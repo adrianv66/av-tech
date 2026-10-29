@@ -1,7 +1,13 @@
 ---
-title: "Citrix vs Omnissa: Two Approaches to AI Governance"
+title: ""
 summary: "Citrix puts NetScaler in the path of AI traffic. Omnissa is building a decision layer above your tools. What each has announced, what's actually available, and where to start."
 tags: [citrix, netscaler, horizon, workspace-one, ai, security, powershell]
+---
+
+## TL;DR
+
+Citrix puts NetScaler in the path of AI traffic. Omnissa is building a decision layer above your tools. What each has announced, what's actually available, and where to start.
+
 ---
 
 AI agents are arriving on the same desktops and networks we already manage. They call models, use MCP servers to
@@ -116,7 +122,7 @@ recognise is a conversation worth having.
 Citrix governs the path AI traffic takes; Omnissa governs the decision to act. Neither replaces knowing what AI is
 already running in your environment, so start there.
 
-### Sources
+## Sources
 
 - [Citrix introduces NetScaler AI Gateway (Citrix)](https://www.citrix.com/news/announcements/apr-2026/netscaler-ai-gateway-to-bring-enterprise-governance-to-ai-application-delivery.html)
 - [Citrix launches MCP Gateway to secure enterprise AI agents (Help Net Security)](https://www.helpnetsecurity.com/2026/07/09/citrix-mcp-gateway/)

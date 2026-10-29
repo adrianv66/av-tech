@@ -1,7 +1,13 @@
 ---
-title: "EUC Security Map: Securing a Horizon and IGEL Stack"
+title: ""
 summary: "Twelve layers, each owned by one tool, from sign-in to recovery, and how they line up with the Essential Eight."
 tags: [horizon, igel, defender, airlock, action1, security, powershell]
+---
+
+## TL;DR
+
+Twelve layers, each owned by one tool, from sign-in to recovery, and how they line up with the Essential Eight.
+
 ---
 
 No single tool secures a virtual desktop environment. An attacker only needs one weak layer: a stolen password, an
@@ -105,7 +111,7 @@ Anything that comes back blank or `Stopped` is a layer that isn't doing its job.
 Secure EUC means every layer has an owner: identity, endpoint, edge, broker, image, detection, application control,
 patching, privilege and recovery. Miss one and the others have to work twice as hard.
 
-### Sources
+## Sources
 
 - [Essential Eight framework guide (Huntress)](https://www.huntress.com/compliance-guide/essential-eight-framework)
 - [Horizon 8 architecture (Omnissa Tech Zone)](https://techzone.omnissa.com/resource/horizon-8-architecture)

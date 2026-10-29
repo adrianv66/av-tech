@@ -1,7 +1,13 @@
 ---
-title: "Workspace ONE vs Intune: Which One Do You Actually Need?"
+title: ""
 summary: "Most businesses already pay for Intune. Here's when that's enough, and when Omnissa Workspace ONE earns its place."
 tags: [workspace-one, intune, powershell]
+---
+
+## TL;DR
+
+Most businesses already pay for Intune. Here's when that's enough, and when Omnissa Workspace ONE earns its place.
+
 ---
 
 Workspace ONE UEM and Microsoft Intune both enrol devices, push apps, apply configuration and report compliance.
@@ -90,7 +96,7 @@ Start from what's already licensed. Intune is enough for most single-company, Mi
 Workspace ONE earns its cost where multi-tenant management, low-code workflows or a Horizon-centred user experience
 matter.
 
-### Sources
+## Sources
 
 - [Workspace ONE UEM vs Intune (Omnissa, vendor comparison)](https://www.omnissa.com/compare/workspace-one-uem-vs-intune/)
 - [Microsoft Intune vs Workspace ONE UEM (Gartner Peer Insights)](https://www.gartner.com/reviews/market/endpoint-management-tools/compare/product/microsoft-intune-vs-workspace-one-uem)

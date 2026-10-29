@@ -1,7 +1,13 @@
 ---
-title: "Citrix vs Azure Virtual Desktop: What Replaces What"
+title: ""
 summary: "Moving from Citrix to AVD? The gateway, portal and broker become Microsoft's problem. Here's how the pieces map and what you still own."
 tags: [citrix, avd, powershell]
+---
+
+## TL;DR
+
+Moving from Citrix to AVD? The gateway, portal and broker become Microsoft's problem. Here's how the pieces map and what you still own.
+
 ---
 
 When you move from Citrix Virtual Apps and Desktops to Azure Virtual Desktop, most of what you used to build and
@@ -86,7 +92,7 @@ Get-BrokerSession -AdminAddress 'ddc01.contoso.local' -MaxRecordCount 100000 |
 ```powershell
 Connect-AzAccount
 Get-AzWvdUserSession -ResourceGroupName 'rg-avd-prod' -HostPoolName 'hp-avd-prod' |
-    Group-Object { ($_.Name -split '/')[1] } |
+    Group-Object { ($_.Name -split '/') [1] } |
     Select-Object @{ n = 'SessionHost'; e = { $_.Name } }, Count
 ```
 
@@ -98,7 +104,7 @@ by.
 Moving to AVD swaps infrastructure you run for a service you consume. The control plane gets simpler; the session
 hosts, identity, network and profiles still need the same care they always did.
 
-### Sources
+## Sources
 
 - [Azure Virtual Desktop components (Microsoft Learn)](https://learn.microsoft.com/en-us/training/modules/azure-virtual-desktop-architecture/3-azure-virtual-desktop-components)
 - [Azure Virtual Desktop architecture (Azure Architecture Center)](https://learn.microsoft.com/en-us/azure/architecture/example-scenario/azure-virtual-desktop/azure-virtual-desktop)

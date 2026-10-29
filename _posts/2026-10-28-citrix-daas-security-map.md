@@ -1,7 +1,13 @@
 ---
-title: "Citrix DaaS Security Map: Eleven Layers from Sign-in to Session"
+title: ""
 summary: "Where each control sits in a Citrix DaaS deployment, from Workspace sign-in to the VDA, including Device Posture, deviceTRUST, App Protection and uberAgent."
 tags: [citrix, daas, devicetrust, uberagent, security, powershell]
+---
+
+## TL;DR
+
+Where each control sits in a Citrix DaaS deployment, from Workspace sign-in to the VDA, including Device Posture, deviceTRUST, App Protection and uberAgent.
+
 ---
 
 Citrix DaaS changes where the security work happens. Citrix runs and secures the control plane, so there are no
@@ -74,7 +80,7 @@ Invoke-Command -ComputerName 'cc01.contoso.local', 'cc02.contoso.local' -ScriptB
 With DaaS, Citrix secures the control plane; you secure everything around it. Identity in front, no inbound
 ports, context checked before and during the session, and evidence afterwards.
 
-### Sources
+## Sources
 
 - [Citrix DaaS technical security overview (Citrix docs)](https://docs.citrix.com/en-us/citrix-daas/secure)
 - [Device Posture service and deviceTRUST: better together (Citrix docs)](https://docs.citrix.com/en-us/device-posture/device-posture-service-and-device-trust-better-together)

@@ -1,7 +1,13 @@
 ---
-title: "Citrix vs Horizon: StoreFront and Delivery Controller vs Connection Server"
+title: ""
 summary: "Moving from Citrix to Horizon? One Connection Server does the job of StoreFront and the Delivery Controller. Here's what changes."
 tags: [citrix, horizon, powershell]
+---
+
+## TL;DR
+
+Moving from Citrix to Horizon? One Connection Server does the job of StoreFront and the Delivery Controller. Here's what changes.
+
 ---
 
 When you move from Citrix to Omnissa Horizon, the Horizon Connection Server replaces both StoreFront and the
@@ -128,7 +134,7 @@ scripts should target REST.
 Citrix separates the front door from the broker and anchors both to SQL; Horizon folds them into replicated
 Connection Servers and scales by pods. Plan your migration around pod boundaries, not server counts.
 
-### Sources
+## Sources
 
 - [Cloud Pod Architecture limits (Horizon docs)](https://docs.vmware.com/en/VMware-Horizon/2012/horizon-cloud-pod-architecture/GUID-33DB8B54-71C8-4087-A26B-8E78F5B3473D.html)
 - [Horizon 8 pods (Omnissa docs)](https://docs.omnissa.com/HorizonOverviewDeployment/Horizon8Pods)

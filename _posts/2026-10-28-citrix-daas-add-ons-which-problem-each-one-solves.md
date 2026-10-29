@@ -1,7 +1,13 @@
 ---
-title: "Citrix DaaS Add-ons: Which Problem Each One Solves"
+title: ""
 summary: "Device Posture, deviceTRUST, App Protection, Session Recording, WEM, uberAgent and Secure Private Access, sorted by the question each one answers."
 tags: [citrix, daas, devicetrust, uberagent, security, powershell]
+---
+
+## TL;DR
+
+Device Posture, deviceTRUST, App Protection, Session Recording, WEM, uberAgent and Secure Private Access, sorted by the question each one answers.
+
 ---
 
 Citrix has added a lot around DaaS in the last couple of years, partly through acquisitions like deviceTRUST and
@@ -75,7 +81,7 @@ delivery group instead.
 Each add-on answers one question: who gets in, whether they should stay, what users experience and what happened.
 Start with the gap that worries you most, not the whole list.
 
-### Sources
+## Sources
 
 - [Device Posture service and deviceTRUST: better together (Citrix docs)](https://docs.citrix.com/en-us/device-posture/device-posture-service-and-device-trust-better-together)
 - [App Protection features (Citrix docs)](https://docs.citrix.com/en-us/citrix-workspace-app/app-protection/features)

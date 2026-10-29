@@ -1,7 +1,13 @@
 ---
-title: "NetScaler's Run of CVEs: What's Happened and What to Do Now"
+title: ""
 summary: "Six exploited NetScaler flaws in 2026 so far, two of them zero-days, and PHP fixes on 27 October. The pattern, the builds you need, and a checklist for patching, hunting and reducing exposure."
 tags: [citrix, netscaler, security, powershell]
+---
+
+## TL;DR
+
+Six exploited NetScaler flaws in 2026 so far, two of them zero-days, and PHP fixes on 27 October. The pattern, the builds you need, and a checklist for patching, hunting and reducing exposure.
+
 ---
 
 If you run NetScaler ADC or Gateway, 2026 has been exhausting. Six NetScaler vulnerabilities have been added to
@@ -103,7 +109,7 @@ To reduce risk and be better prepared, organisations should:
 - Keep a tested process for assessing exposure, reviewing indicators of compromise and recovering services if
   needed.
 
-### Resources
+## Resources
 
 - [NetScaler Secure Deployment Guide](https://docs.netscaler.com/en-us/netscaler-adc-secure-deployment/deployment-guidelines)
 - [Indicators of compromise detection in NetScaler Console](https://docs.netscaler.com/en-us/netscaler-console-service/instance-advisory/ioc.html)
@@ -127,13 +133,13 @@ foreach ($ns in $appliances) {
     $v = (Invoke-RestMethod "https://$ns/nitro/v1/config/nsversion" -Headers $headers -SkipCertificateCheck).nsversion.version
 
     if ($v -match 'NS(\d+\.\d+): Build (\d+\.\d+)') {
-        $branch = $Matches[1]; $build = [version]$Matches[2]
+        $branch = $Matches [1]; $build = [version]$Matches [2]
         [pscustomobject]@{
             Appliance = $ns
             Branch    = $branch
             Build     = $build
-            Status    = if (-not $minimum[$branch]) { 'Unsupported branch: upgrade to 14.1' }
-                        elseif ($build -lt $minimum[$branch]) { 'Needs patching' }
+            Status    = if (-not $minimum [$branch]) { 'Unsupported branch: upgrade to 14.1' }
+                        elseif ($build -lt $minimum [$branch]) { 'Needs patching' }
                         else { 'OK' }
         }
     }
@@ -171,7 +177,7 @@ NetScaler is a high-value target because it sits on the internet, in front of ev
 credentials. Patch fast, kill sessions, hunt rather than assume, and switch off what you don't use. And if a
 Citrix-managed gateway would do the job, let Citrix carry the patching.
 
-### Sources
+## Sources
 
 - [Citrix security advisory for CVE-2026-109618 and CVE-2026-109619 (Citrix, CTX697263)](https://support.citrix.com/external/article/CTX697263)
 - [CVE-2026-109618 and CVE-2026-109619: critical RCE in PHP (Rapid7)](https://www.rapid7.com/blog/post/etr-cve-2026-109618-and-cve-2026-109619-critical-unauthenticated-remote-code-execution-in-php/)
